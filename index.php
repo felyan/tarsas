@@ -5,6 +5,10 @@ if (isset($_GET['tartalom'])) {
 } else {
   $tartalom = 'fooldal';
 }
+$user = null;
+if (isset($_SESSION['user'])) {
+  $user = $_SESSION['user'];
+}
 ?>
 <!doctype html>
 <html>
