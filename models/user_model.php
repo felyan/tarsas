@@ -16,3 +16,17 @@ function kereses_fnev_alapjan($fnev)
   }
   return $user;
 }
+
+function kereses_id_alapjan($id)
+{
+  global $dbc;
+  $user = [];
+  $query = "SELECT *
+            FROM user
+            WHERE id = $id    
+    ";
+  if ($eredmeny = $dbc->query($query)) {
+    $user = $eredmeny->fetch_array();
+  }
+  return $user;
+}

@@ -14,7 +14,7 @@
       <ul>
         <li><a href="index.php?tartalom=registration">Regisztráció</a></li>
         <li><a href="index.php?tartalom=bejelentkezes">Bejelentkezés</a></li>
-        <li><a href="index.php?tartalom=gyik">GYIK</a></li>
+        <li><a href="index.php?tartalom=igymukodik">Így működik</a></li>
       </ul>
     </nav>
   </header>

@@ -1,7 +1,7 @@
 <?php
-include 'models/registration_db.php';
-include 'models/game_type.php';
-include 'models/game.php';
+include 'models/registration_model.php';
+include 'models/game_type_model.php';
+include 'models/game_model.php';
 ?>
 <form class="urlap" method="post" onsubmit>
   <fieldset class="mezo_cs">
