@@ -1,6 +1,3 @@
-<?php
-include "controllers/bejelentkezes_controller.php";
-?>
 <?php if ($user): ?>
 <h1>
   A bejelentkezés sikeres!
@@ -9,7 +6,7 @@ include "controllers/bejelentkezes_controller.php";
   Üdvözlünk újra, <?=$user['fullname']?>
 </h2>
 <?php endif; ?>
-<form name="urlap" class="urlap" method="post" onsubmit>
+<form name="urlap" class="urlap" method="post" action="<?= route('profil_bejelentkezes_action') ?>">
   <fieldset class="mezo_cs">
     <legend><h2>Belépéshez szükséges adatok:</h2></legend>
     <label>Felhasználónév:</label><br/>

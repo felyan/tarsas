@@ -10,6 +10,7 @@ include "controllers/chat_controller.php";
           <?= $item['user']['username'] ?>
         </strong>
         <div>
+          <?= $item['date'] ?><br>
           <?= $item['post'] ?>
         </div>
         <br>
@@ -21,9 +22,10 @@ include "controllers/chat_controller.php";
 <form name="urlap" class="urlap" method="post" onsubmit>
   <fieldset class="mezo_cs">
     <legend><h2>Hozzászólás</h2></legend>
+    <p><?php echo $user["username"]?></p>
     <textarea cols="50" rows="5" maxlength="1000"
               name="post"
-              placeholder="ide írj..."></textarea>
+              placeholder="ide írj.."></textarea>
     <input type="submit" name="bekuldes" value="Hozzászólás beküldése"/>
   </fieldset>
 </form>

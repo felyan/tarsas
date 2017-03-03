@@ -20,6 +20,10 @@ include "controllers/ujesemeny_controller.php";
           <option value="<?php echo $game['id'] ?>"><?php echo $game['name'] ?></option>
         <?php endforeach; ?>
       </select>
+      <div>
+        <label><?= $cim ?></label>
+        <input type="text" name="cim" value="<?php echo $cim ?>" >
+      </div>
     </fieldset>
   </form>
 <?php else: ?>

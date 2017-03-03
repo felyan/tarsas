@@ -1,18 +1,38 @@
 <?php
 include 'db.php';
 
-$games = [];
-$query = " SELECT * FROM game";
-
-if ($eredmeny = mysqli_query($dbc, $query)) {
-  $talalatok_szama = mysqli_num_rows($eredmeny);
-
-  if ($talalatok_szama) {
-    while ($sor = mysqli_fetch_array($eredmeny)) {
-      $games [] = $sor;
-    }
-  } else {
-    echo "Nincs a keresési feltételeknek megfelelő találat!";
+function jatek_kereses_nev_alapjan($name = '')
+{
+  global $dbc;
+  $game = [];
+  $query = "SELECT *
+            FROM game    
+   ";
+  if (strlen($name)) {
+    $query .= " WHERE name LIKE '%$name%'";
   }
-  mysqli_free_result($eredmeny);
+  if ($eredmeny = $dbc->query($query)) {
+    while ($sor = $eredmeny->fetch_array()) {
+      $game[] = $sor;
+    }
+  }
+  return $game;
+}
+
+function jatek_tipus_nev_alapjan($name = '')
+{
+  global $dbc;
+  $type = [];
+  $query = "SELECT *
+            FROM game_type    
+   ";
+  if (strlen($name)) {
+    $query .= " WHERE name LIKE '%$name%'";
+  }
+  if ($eredmeny = $dbc->query($query)) {
+    while ($sor = $eredmeny->fetch_array()) {
+      $type[] = $sor;
+    }
+  }
+  return $type;
 }
