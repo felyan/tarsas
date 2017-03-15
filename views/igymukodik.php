@@ -1,4 +1,4 @@
-<form name="urlap" class="urlap" action="comment.php" method="post" onsubmit>
+<form name="urlap" class="urlap">
   <fieldset class="mezo_cs">
     <legend><h2>Így működik</h2></legend>
     <p>

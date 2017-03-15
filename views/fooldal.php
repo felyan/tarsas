@@ -22,7 +22,7 @@
             </a>
             <figcaption>
               <h2>Keresés a játékok között</h2>
-              <p>Itt tudsz böngészni a mások által létrehozott események között, és itt tudsz nevezni, ha szívesen részt
+              <p>Itt tudsz böngészni a mások által létrehozott események között, és itt tudsz jelentkezni, ha szívesen részt
                 vennél.</p>
               <footer class="more"><a href="index.php?tartalom=kereses">Keresek</a></footer>
             </figcaption>

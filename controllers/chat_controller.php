@@ -2,18 +2,18 @@
 include "models/comment_model.php";
 include "models/user_model.php";
 
-function chat_lista()
+function hozzaszolasok_listazasa()
 {
   $chat = chat_bejegyzesek();
   foreach ($chat as $key => $item) {
     $chat[$key]['user'] = kereses_id_alapjan($item['user_id']);
   }
-  return $chat;
+  view('chat', ['lista' => $chat]);
 }
 
-if (isset($_POST['bekuldes'])) {
-  ujbejegyzes($user['id'], $_POST['post']);
+function hozzaszolas_bekuldese_action()
+{
+  // TODO: Hibakezelés!
+  $chat = ujbejegyzes($_POST['user_id'], $_POST['post']);
+  hozzaszolasok_listazasa();
 }
-
-$chat = chat_lista();
-

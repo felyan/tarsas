@@ -59,13 +59,40 @@ function felhasznalo_letrehozas($fullname, $email, $username, $password)
   return false;
 }
 
-function felhasznalo_jatekai($jatekok, $user_id, $sajat = false, $szivesen = false)
+function felhasznalo_modositas($fullname, $email, $username, $password, $user_id)
+{
+  global $dbc;
+  $query = "
+  INSERT INTO user
+  (fullname, email, username, password)
+  VALUES ('$fullname', '$email', '$username', SHA1('$password'))
+  ";
+  if ($dbc->query($query)) {
+    return $dbc->insert_id;
+  }
+  return false;
+}
+
+function felhasznalo_jatekai_select($user_id) {
+  global $dbc;
+  $output = [];
+  $query = "SELECT *
+            FROM user_has_game
+            WHERE user_id = $user_id
+    ";
+  if ($eredmeny = $dbc->query($query)) {
+    $output = $eredmeny->fetch_array();
+  }
+  return $output;
+}
+
+function felhasznalo_jatekai_insert($jatekok, $user_id, $sajat = false, $szivesen = false)
 {
   global $dbc;
   $insert_id = [];
   foreach ($jatekok as $game_id) {
     $query = "
-    INSERT INTO user_has_games
+    INSERT INTO user_has_game
     (user_id, games_id, sajat, szivesen)
     VALUES ('$user_id', '$game_id', $sajat, $szivesen)
     ";

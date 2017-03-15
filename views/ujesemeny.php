@@ -4,7 +4,7 @@ include "controllers/ujesemeny_controller.php";
 
 <?php if ($user): ?>
 
-  <form class="urlap" method="post" onsubmit>
+  <form class="urlap" method="<?= route('ujesemeny_action') ?>" >
     <fieldset class="mezo_cs">
       <legend><h2>Játék típusa</h2></legend>
       <?php foreach ($gameTypes as $type): ?>
