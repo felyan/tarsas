@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -56,7 +60,10 @@ nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
+}
 
+.input_100 {
+  width: 100%;
 }
 
 h1,
@@ -85,9 +92,10 @@ h6 {
 }
 
 .session {
-  padding: 0px 20px;
+  padding: 0 0 20px 20px;
   overflow: auto;
-  text-align: right;
+  display: block;
+  text-align: center;
 }
 
 #header {
@@ -242,6 +250,10 @@ h6 {
   margin: 30px;
   border-radius: 10px;
 
+}
+
+.urlap_cim {
+  font-size: medium;
 }
 
 .registration-multiple {

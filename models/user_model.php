@@ -106,15 +106,30 @@ function felhasznalo_jatekai_insert($jatekok, $user_id, $sajat = false, $szivese
   return false;
 }
 
-function felhasznalo_jatek_tipusok($jatek_tipusok, $user_id)
+function felhasznalo_jatek_tipusok_select($user_id) {
+  global $dbc;
+  $output = [];
+  $query = "SELECT *
+            FROM user_has_game_types
+            WHERE user_id = $user_id
+    ";
+  if ($eredmeny = $dbc->query($query)) {
+    while ($sor = $eredmeny->fetch_array()) {
+      $output[] = $sor['game_type_id'];
+    }
+  }
+  return $output;
+}
+
+function felhasznalo_jatek_tipusok_insert($jatek_tipusok, $user_id)
 {
   global $dbc;
   $insert_id = [];
-  foreach ($jatek_tipusok as $type_id) {
+  foreach ($jatek_tipusok as $Type_id) {
     $query = "
     INSERT INTO user_has_game_types
     (user_id, game_type_id)
-    VALUES ('$user_id', '$type_id')
+    VALUES ('$user_id', '$Type_id')
     ";
     if ($dbc->query($query)) {
       $insert_id [] = $dbc->insert_id;
@@ -126,7 +141,9 @@ function felhasznalo_jatek_tipusok($jatek_tipusok, $user_id)
   return false;
 }
 
-function kereses_user_id_alapjan($user_id)
+
+
+function jatekok_user_id_alapjan($user_id)
 {
   global $dbc;
   $kimenet = [];

@@ -1,35 +1,50 @@
-<?php
-include "controllers/ujesemeny_controller.php";
-?>
-
 <?php if ($user): ?>
 
-  <form class="urlap" method="<?= route('ujesemeny_action') ?>" >
+  <form class="urlap" action="<?= route('ujesemeny_action')?>" method="post">
     <fieldset class="mezo_cs">
-      <legend><h2>Játék típusa</h2></legend>
-      <?php foreach ($gameTypes as $type): ?>
-        <div>
-          <label><?= $type['name'] ?></label>
-          <input type="checkbox" name="jatek-tipusok[]" value="<?php echo $type['id'] ?>" checked>
-        </div>
-      <?php endforeach; ?>
-      <br><br>
-      <legend><h2>Saját játékok</h2></legend>
-      <select class="registration-multiple" name="sajat-jatekok[]" multiple>
-        <?php foreach ($ownGameTypes as $game): ?>
-          <option value="<?php echo $game['id'] ?>"><?php echo $game['name'] ?></option>
+      <legend class="urlap_cim">Saját játékok</legend>
+      <select name="game_id">
+        <?php foreach ($view['ownGames'] as $game): ?>
+          <option value="<?= $game['id'] ?>">
+            <?= $game['name'] ?> (Max: <?= $game['member_max'] ?>)
+          </option>
         <?php endforeach; ?>
       </select>
+      <br><br>
       <div>
-        <label><?= $cim ?></label>
-        <input type="text" name="cim" value="<?php echo $cim ?>" >
+        <label class="urlap_cim" for="szabad_helyek">Szabad helyek:</label><br>
+        <input type="number" name="szabad_helyek" id="szabad_helyek" value="2">
+      </div>
+      <br>
+      <div>
+        <label class="urlap_cim" for="date_start">Kezdés:</label><br>
+        <input type="date" name="date_start" id="date_start"
+               value="<?= date('Y-m-d H:00:00') ?>">
+      </div>
+      <br>
+      <div>
+        <label class="urlap_cim" for="date_end">Befejezés:</label><br>
+        <input type="date" name="date_end" id="date_end"
+               value="<?= date('Y-m-d H:00:00') ?>">
+      </div>
+      <br>
+      <div>
+        <label class="urlap_cim" for="cim">Helyszín:</label><br>
+        <input type="text" name="cim" id="cim" class="input_100"
+               value="<?= $user['cim'] ?>">
+      </div>
+      <br>
+      <div>
+        <label class="urlap_cim" for="leiras">Leírás:</label><br>
+        <textarea name="leiras" id="leiras" class="input_100" placeholder="ide írj..."></textarea><br><br>
+        <button name="event_submit" type="submit">Esemény létrehozása</button>
       </div>
     </fieldset>
   </form>
 <?php else: ?>
-<div class="urlap">
-  <h1>A funkció használatához be kell jelentkezni</h1>
-</div>
+  <div class="urlap">
+    <h1>A funkció használatához be kell jelentkezni!</h1>
+  </div>
 <?php endif; ?>
 
 

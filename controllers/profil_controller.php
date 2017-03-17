@@ -14,12 +14,19 @@ function regisztracio()
   foreach ($games as $key => $game) {
     $games[$key]['selected'] = ($user and in_array($game['id'], $userGames));
   }
-  // TODO: gameTypes checked attribútum, a felhasználó adatai alapján!
-  $view = [
-    'gameTypes' => jatek_tipus_nev_alapjan(),
+  $gameTypes = jatek_tipus_nev_alapjan();
+  if ($user) {
+    $userGameTypes = felhasznalo_jatek_tipusok_select($user['id']);
+  } else {
+    $userGameTypes = [];
+  }
+  foreach ($gameTypes as $key => $tipus) {
+    $gameTypes[$key]['checked'] = ($user and in_array($tipus['id'], $userGameTypes));
+  }
+  return view('registration', [
+    'gameTypes' => $gameTypes,
     'games' => $games
-  ];
-  return view('registration', $view);
+  ]);
 }
 
 function regisztracio_action()

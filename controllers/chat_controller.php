@@ -13,7 +13,15 @@ function hozzaszolasok_listazasa()
 
 function hozzaszolas_bekuldese_action()
 {
-  // TODO: Hibakezelés!
-  $chat = ujbejegyzes($_POST['user_id'], $_POST['post']);
+// TODO: Hibakezelés!
+  global $user;
+  if (!$user) {
+
+    echo "A funkció használatához be kell jelentkezni!";
+
+  } else {
+    $chat = ujbejegyzes($_POST['user_id'], $_POST['post']);
+  }
   hozzaszolasok_listazasa();
+
 }

@@ -14,7 +14,7 @@
     <?php endif; ?>
   </fieldset>
 </div>
-
+<?php if ($user): ?>
 <form name="urlap" class="urlap" action="<?= route('chat_action') ?>" method="post">
   <fieldset class="mezo_cs">
     <legend><h2>Hozzászólás</h2></legend>
@@ -26,3 +26,8 @@
     <input type="submit" name="bekuldes" value="Hozzászólás beküldése"/>
   </fieldset>
 </form>
+<?php else: ?>
+  <div class="urlap">
+    <h1>A funkció használatához be kell jelentkezni!</h1>
+  </div>
+<?php endif; ?>

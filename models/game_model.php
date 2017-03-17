@@ -36,3 +36,5 @@ function jatek_tipus_nev_alapjan($name = '')
   }
   return $type;
 }
+
+

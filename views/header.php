@@ -4,17 +4,6 @@
       <h1>Társasjátékszervező</h1>
       <h2>Találj magadnak játékostársakat itt!</h2>
     </a>
-    <div class="session">
-      <?php if ($user): ?>
-        Bejelentkezve:
-        <?= $user['fullname'] ?>
-        <div class="session">
-          <a href="<?= route('profil_kijelentkezes') ?>">
-            Kijelentkezés
-          </a>
-        </div>
-      <?php endif; ?>
-    </div>
     <nav>
       <ul>
         <?php if ($user): ?>
@@ -27,5 +16,16 @@
         <li><a href="<?= route('igymukodik') ?>">Így működik</a></li>
       </ul>
     </nav>
-  </header>
+    <div class="session">
+      <?php if ($user): ?>
+      Bejelentkezve:<br>
+      <?= $user['fullname'] ?><br>
+      <a href="<?= route('profil_kijelentkezes') ?>">
+        Kijelentkezés
+      </a>
+    </div>
+    <?php endif; ?>
 </div>
+</header>
+</div>
+
