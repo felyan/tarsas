@@ -7,12 +7,14 @@
 </head>
 <body>
 <?php
-if (!empty($_SESSION['message'])) {
-  echo $_SESSION['message'];
-  $_SESSION['message'] = '';
-}
-?>
-<?php include "views/header.php"; ?>
+// TODO: A "partial" típusú beolvasásokat is a "view" eljráás intézze!
+include "views/header.php"; ?>
+<?php if ($view['message']): ?>
+  <div class="urlap">
+    <?= $view['message'] ?>
+  </div>
+<?php endif; ?>
+<br>
 <main>
   <?php include('views/' . $viewName . ".php"); ?>
 </main>

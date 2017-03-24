@@ -13,15 +13,8 @@ function hozzaszolasok_listazasa()
 
 function hozzaszolas_bekuldese_action()
 {
-// TODO: Hibakezelés!
   global $user;
-  if (!$user) {
-
-    echo "A funkció használatához be kell jelentkezni!";
-
-  } else {
-    $chat = ujbejegyzes($_POST['user_id'], $_POST['post']);
-  }
+  hozzaszolas($user['id'], $_GET['chat_id']);
+  $_SESSION['message'] = 'A hozzászólásodat rögzítettük!';
   hozzaszolasok_listazasa();
-
 }

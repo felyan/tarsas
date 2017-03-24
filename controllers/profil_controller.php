@@ -1,4 +1,8 @@
 <?php
+/*
+ * A "controller" elején behívjuk azokat a "model"-eket, amiket itt használni fogunk.
+ * Így elérhetőek lesznek a modelleken belüli metódusok.
+ */
 include 'models/user_model.php';
 include 'models/game_model.php';
 
@@ -45,6 +49,10 @@ function bejelentkezes()
   return view('bejelentkezes');
 }
 
+/*
+ * A bejelentkezett felhasználó adatait eltároljuk a globális SESSION tömbben,
+ * hogy később elérhető legyen más oldalakon is.
+ */
 function bejelentkezes_action()
 {
   $fnev = $_POST['username'];
@@ -75,15 +83,5 @@ function kijelentkezes()
 {
   unset($_SESSION['user']);
   session_destroy();
-  header("location:/");
-}
-
-function ujesemeny()
-{
-  return view('ujesemeny');
-}
-
-function ujesemeny_action()
-{
-
+  redirect('fooldal');
 }
