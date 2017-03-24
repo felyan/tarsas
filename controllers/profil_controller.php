@@ -12,11 +12,25 @@ function regisztracio()
   $games = jatek_kereses_nev_alapjan();
   if ($user) {
     $userGames = felhasznalo_jatekai_select($user['id']);
-  } else {
+  }
+  if (!isset($userGames) or !is_array($userGames)) {
     $userGames = [];
   }
+  $gamesOwnId = [];
+  $gamesLikeId = [];
+  foreach ($userGames as $game) {
+    if ((int)$game['sajat']) {
+      $gamesOwnId [] = $game['id'];
+    }
+    if ((int)$game['szivesen']) {
+      $gamesLikeId [] = $game['id'];
+    }
+  }
+  $gamesOwn = $games;
+  $gamesLike = $games;
   foreach ($games as $key => $game) {
-    $games[$key]['selected'] = ($user and in_array($game['id'], $userGames));
+    $gamesOwn[$key]['selected'] = ($user and in_array($game['id'], $gamesOwnId));
+    $gamesLike[$key]['selected'] = ($user and in_array($game['id'], $gamesLikeId));
   }
   $gameTypes = jatek_tipus_nev_alapjan();
   if ($user) {
@@ -29,7 +43,8 @@ function regisztracio()
   }
   return view('registration', [
     'gameTypes' => $gameTypes,
-    'games' => $games
+    'gamesOwn' => $gamesOwn,
+    'gamesLike' => $gamesLike
   ]);
 }
 
@@ -37,7 +52,7 @@ function regisztracio_action()
 {
   $user_id = felhasznalo_letrehozas($_POST['fullname'], $_POST['email'], $_POST['username'], $_POST['password']);
   if ($user_id) {
-    felhasznalo_jatek_tipusok($_POST['jatek-tipusok'], $user_id);
+    felhasznalo_jatek_tipusok_insert($_POST['jatek-tipusok'], $user_id);
     felhasznalo_jatekai_insert($_POST['sajat-jatekok'], $user_id, true, false);
     felhasznalo_jatekai_insert($_POST['szivesen-jatekok'], $user_id, false, true);
   }
@@ -72,9 +87,9 @@ function modositas_action()
   $user_id = $_POST['user_id'];
   felhasznalo_modositas($_POST['fullname'], $_POST['email'], $_POST['username'], $_POST['password'], $user_id);
   if ($user_id) {
-    felhasznalo_jatek_tipusok($_POST['jatek-tipusok'], $user_id);
-    felhasznalo_jatekai($_POST['sajat-jatekok'], $user_id, true, false);
-    felhasznalo_jatekai($_POST['szivesen-jatekok'], $user_id, false, true);
+    felhasznalo_jatek_tipusok_insert($_POST['jatek-tipusok'], $user_id);
+    felhasznalo_jatekai_insert($_POST['sajat-jatekok'], $user_id, true, false);
+    felhasznalo_jatekai_insert($_POST['szivesen-jatekok'], $user_id, false, true);
   }
   regisztracio();
 }

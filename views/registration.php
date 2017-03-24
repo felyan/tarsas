@@ -1,4 +1,5 @@
-<form class="urlap" method="post" action="<?= route('regisztracio_action') ?>">
+<form class="urlap" method="post"
+      action="<?= $user ? route('profil_modositas_action') : route('profil_regisztracio_action') ?>">
   <?php if ($user): ?>
     <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
     <h1>"<?php echo $user['username'] ?>" felhasználó adatainak módosítása</h1>
@@ -46,7 +47,7 @@
     <br><br>
     <legend class="urlap_cim">Saját játékok</legend>
     <select class="registration-multiple" name="sajat-jatekok[]" multiple>
-      <?php foreach ($view['games'] as $game): ?>
+      <?php foreach ($view['gamesOwn'] as $game): ?>
         <option value="<?= $game['id'] ?>" <?= $game['selected'] ? 'selected' : '' ?>>
           <?= $game['name'] ?>
         </option>
@@ -55,8 +56,10 @@
     <br><br>
       <legend class="urlap_cim">Amivel szívesen játszanék</legend>
       <select class="registration-multiple" name="szivesen-jatekok[]" multiple>
-        <?php foreach ($view['games'] as $game): ?>
-          <option value="<?= $game['id'] ?>"><?= $game['name'] ?></option>
+        <?php foreach ($view['gamesLike'] as $game): ?>
+          <option value="<?= $game['id'] ?>" <?= $game['selected'] ? 'selected' : '' ?>>
+            <?= $game['name'] ?>
+          </option>
         <?php endforeach; ?>
       </select>
   </fieldset>

@@ -73,15 +73,23 @@ function felhasznalo_modositas($fullname, $email, $username, $password, $user_id
   return false;
 }
 
-function felhasznalo_jatekai_select($user_id) {
+function felhasznalo_jatekai_select($user_id)
+{
   global $dbc;
   $output = [];
-  $query = "SELECT *
-            FROM user_has_game
-            WHERE user_id = $user_id
+  $query = "
+    SELECT
+      game.*,
+      uhg.sajat,
+      uhg.szivesen
+    FROM game
+    LEFT JOIN user_has_game uhg ON uhg.game_id = game.id
+    WHERE uhg.user_id = $user_id
     ";
   if ($eredmeny = $dbc->query($query)) {
-    $output = $eredmeny->fetch_array();
+    while ($row = $eredmeny->fetch_array()) {
+      $output [] = $row;
+    }
   }
   return $output;
 }
@@ -90,11 +98,13 @@ function felhasznalo_jatekai_insert($jatekok, $user_id, $sajat = false, $szivese
 {
   global $dbc;
   $insert_id = [];
+  $sajat = (int)$sajat;
+  $szivesen = (int)$szivesen;
   foreach ($jatekok as $game_id) {
     $query = "
     INSERT INTO user_has_game
-    (user_id, games_id, sajat, szivesen)
-    VALUES ('$user_id', '$game_id', $sajat, $szivesen)
+    (user_id, game_id, sajat, szivesen)
+    VALUES ($user_id, $game_id, $sajat, $szivesen)
     ";
     if ($dbc->query($query)) {
       $insert_id [] = $dbc->insert_id;
@@ -106,7 +116,8 @@ function felhasznalo_jatekai_insert($jatekok, $user_id, $sajat = false, $szivese
   return false;
 }
 
-function felhasznalo_jatek_tipusok_select($user_id) {
+function felhasznalo_jatek_tipusok_select($user_id)
+{
   global $dbc;
   $output = [];
   $query = "SELECT *
@@ -125,11 +136,11 @@ function felhasznalo_jatek_tipusok_insert($jatek_tipusok, $user_id)
 {
   global $dbc;
   $insert_id = [];
-  foreach ($jatek_tipusok as $Type_id) {
+  foreach ($jatek_tipusok as $type_id) {
     $query = "
     INSERT INTO user_has_game_types
     (user_id, game_type_id)
-    VALUES ('$user_id', '$Type_id')
+    VALUES ($user_id, $type_id)
     ";
     if ($dbc->query($query)) {
       $insert_id [] = $dbc->insert_id;
@@ -140,7 +151,6 @@ function felhasznalo_jatek_tipusok_insert($jatek_tipusok, $user_id)
   }
   return false;
 }
-
 
 
 function jatekok_user_id_alapjan($user_id)

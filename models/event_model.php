@@ -15,148 +15,55 @@ function esemeny_insert($user_id, $game_id, $start, $end, $location, $descriptio
 
 }
 
-function kereses_usernev_alapjan($fnev)
+function esemeny_kereses($tipus, $kifejezes)
 {
   global $dbc;
-  $event = [];
-  $query = "SELECT event.id,
+  $events = [];
+  $query = "
+    SELECT
+      event.id,
 			game.name,
-			game_type.name AS type,
-			event.location,
-			user.username,
-			event.description,
-			event.date_start,
-			event.date_end,
-			event.free_place,
-              COUNT(DISTINCT ehu.id) AS reserved_place
-            FROM event
-			INNER JOIN game ON game_id = event.game_id
-			INNER JOIN game_type ON game.game_type.id = game_type.id
-            INNER JOIN user ON user_id=event.user_id
-            LEFT JOIN event_has_user ehu ON ehu.event_id = event.id
-            WHERE username LIKE '%$fnev%'
+      game_type.name AS type,
+      event.location,
+      user.username,
+      event.description,
+      event.date_start,
+      event.date_end,
+      event.free_place,
+      COUNT(DISTINCT ehu.id) AS reserved_place
+    FROM event
+    INNER JOIN game ON game.id = event.game_id
+    INNER JOIN game_type ON game.game_type_id = game_type.id
+    INNER JOIN user ON user.id = event.user_id
+    LEFT JOIN event_has_user ehu ON ehu.event_id = event.id
     ";
-  if ($eredmeny = $dbc->query($query)) {
-    $event = $eredmeny->fetch_array();
+  switch ($tipus) {
+    case 'name':
+      $query .= " WHERE game.name LIKE '%$kifejezes%' ";
+      break;
+    case 'type':
+      $query .= " WHERE game_type.name LIKE '%$kifejezes%' ";
+      break;
+    case 'location':
+      $query .= " WHERE event.location LIKE '%$kifejezes%' ";
+      break;
+    case 'username':
+      $query .= " WHERE user.username LIKE '%$kifejezes%' ";
+      break;
+    case 'date':
+      $query .= " WHERE event.date_start > '$kifejezes' ";
+      break;
   }
-  return $event;
-}
-
-function kereses_datum_alapjan($date)
-{
-  global $dbc;
-  $event = [];
-  $query = "SELECT event.id,
-			game.name,
-			game_type.name AS type,
-			event.location,
-			user.username,
-			event.description,
-			event.date_start,
-			event.date_end,
-			event.free_place,
-              COUNT(DISTINCT ehu.id) AS reserved_place
-            FROM event
-			INNER JOIN game ON game_id = event.game_id
-			INNER JOIN game_type ON game.game_type.id = game_type.id
-			INNER JOIN user ON user.id = event.user_id
-			LEFT JOIN event_has_user ehu ON ehu.event_id = event.id
-            WHERE date LIKE '%$date%'
-			ORDER BY event.date_start
-    ";
+  $query .= "
+    GROUP BY event.id
+  ";
   if ($eredmeny = $dbc->query($query)) {
-    $event = $eredmeny->fetch_array();
-  }
-  return $event;
-}
-
-function kereses_helyszin_alapjan($cim)
-{
-  global $dbc;
-  $event = [];
-  $query = "SELECT event.id,
-			game.name,
-            game_type.name AS type,
-            event.location,
-            user.username,
-            event.description,
-            event.date_start,
-            event.date_end,
-            event.free_place,
-              COUNT(DISTINCT ehu.id) AS reserved_place
-            FROM event
-			INNER JOIN game ON game_id = event.game_id
-			INNER JOIN game_type ON game.game_type.id = game_type.id
-			INNER JOIN user ON user.id = event.user_id
-			LEFT JOIN event_has_user ehu ON ehu.event_id = event.id
-            WHERE cim LIKE '%$cim%'
-    ";
-  if ($eredmeny = $dbc->query($query)) {
-    $event = $eredmeny->fetch_array();
-  }
-  return $event;
-}
-
-function kereses_jateknev_alapjan($name = '')
-{
-  global $dbc;
-  $event = [];
-  $query = "SELECT
-              event.id,
-              game.name,
-              game_type.name AS type,
-              event.location,
-              user.username,
-              event.description,
-              event.date_start,
-              event.date_end,
-              event.free_place,
-              COUNT(DISTINCT ehu.id) AS reserved_place
-            FROM event 
-            INNER JOIN game ON game_id = event.game_id
-            INNER JOIN game_type ON game.game_type_id = game_type.id
-            INNER JOIN user ON user.id = event.user_id
-            LEFT JOIN event_has_user ehu ON ehu.event_id = event.id
-            WHERE game.name LIKE '%$name%'
-            GROUP BY event.id
-   ";
-
-  if ($eredmeny = $dbc->query($query)) {
-    while ($sor = $eredmeny->fetch_array()) {
-      $event[] = $sor;
+    while ($event = $eredmeny->fetch_array()) {
+      $event['jelentkezhet'] = (int)$event['reserved_place'] < (int)$event['free_place'];
+      $events[] = $event;
     }
   }
-  return $event;
-}
-
-function kereses_tipus_nev_alapjan($name = '')
-  // itt 3 táblát kéne összekötni???
-{
-  global $dbc;
-  $event = [];
-  $query = "SELECT event.id,
-              game.name,
-              game_type.name AS type,
-              event.location,
-              user.username,
-              event.description,
-              event.date_start,
-              event.date_end,
-              event.free_place,
-              COUNT(DISTINCT ehu.id) AS reserved_place
-            FROM event 
-            INNER JOIN game ON event.game_id = game.id  
-            INNER JOIN game_type ON game.game_type_id = game_type.id
-            LEFT JOIN event_has_user ehu ON ehu.event_id = event.id
-            WHERE game_type.name LIKE '%$name%'
-			GROUP BY event.id
-   ";
-  if ($eredmeny = $dbc->query($query)) {
-    while ($sor = $eredmeny->fetch_array()) {
-      $event[] = $sor;
-    }
-  }
-  return $event;
+  return $events;
 }
 
 function esemeny_jelentkezes($user_id, $event_id)
