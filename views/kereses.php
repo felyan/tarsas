@@ -1,5 +1,5 @@
 <div class="urlap">
-  <form action="<?= route('kereses_action') ?>" method="post">
+  <form action="<?= route('kereses') ?>" method="post">
     <h2>Kérem válasszon az alábbiak közül</h2>
     <select name="tipus">
       <option value=""></option>

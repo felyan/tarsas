@@ -20,19 +20,12 @@
       <legend><h2>Hozzászólás</h2></legend>
       <p><?php echo $user["username"]?></p>
       <textarea cols="50" rows="5" maxlength="1000"
-                name="post"
+                name="hozzaszolas"
+                id="hozzaszolas"
+                autofocus required
                 placeholder="ide írj.."></textarea>
       <input type="hidden" name="user_id" value="<?php echo $user["id"]?>">
-      <input type="submit" name="bekuldes" value="Hozzászólás beküldése"/>
-      <?php
-      // TODO: Létrejött-e az új bejegyzés? Ha nem, akkor hiba kiírása a view-ban!
-      if (!empty(hozzaszolas_bekuldese_action($_SESSION['message']))) : ?>
-        {
-        echo $_SESSION['message'];
-        }
-      <?php else: ?>
-        echo "A hozzászólás rögzítése nem sikerült!"
-      <?php endif; ?>
+      <input type="submit" name="bekuldes" value="Hozzászólás beküldése">
     </fieldset>
   </form>
 <?php else: ?>

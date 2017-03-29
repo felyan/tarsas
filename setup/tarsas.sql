@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2017 at 10:05 AM
+-- Generation Time: Mar 24, 2017 at 08:34 PM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.21
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `post` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=900 ;
 
 --
 -- Dumping data for table `chat`
@@ -42,10 +42,10 @@ INSERT INTO `chat` (`id`, `user_id`, `post`, `date`) VALUES
 (3, 16, 'Szia, Hogy vagy?', '2017-03-01 10:09:04'),
 (4, 17, 'Á, ne is kérdezd! :P :( :D', '2017-03-01 10:09:04'),
 (5, 16, 'Minden oké', '2017-03-01 10:32:45'),
-(6, 16, 'fdsafdas', '2017-03-01 10:33:55'),
+(6, 16, 'Jöttök holnap?', '2017-03-01 10:33:55'),
 (7, 16, 'Hali', '2017-03-01 19:35:19'),
-(8, 16, 'skjdfh', '2017-03-15 07:49:35'),
-(9, 16, 'ksd', '2017-03-16 10:32:44'),
+(8, 16, 'Géza kék az ég.', '2017-03-15 07:49:35'),
+(9, 16, 'yepp', '2017-03-16 10:32:44'),
 (10, 16, 'Szia Benó!', '2017-03-16 11:21:04'),
 (11, 16, 'Hali!', '2017-03-18 09:45:32');
 
@@ -65,16 +65,17 @@ CREATE TABLE IF NOT EXISTS `event` (
   `description` mediumtext NOT NULL,
   `free_place` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `event`
 --
 
 INSERT INTO `event` (`id`, `user_id`, `game_id`, `date_start`, `date_end`, `location`, `description`, `free_place`) VALUES
-(1, 16, 1, '2017-05-17 09:00:00', '2017-03-17 10:00:00', '8200 Veszprém, Gábor', 'fdafdas fd', 2),
-(2, 17, 5, '2017-04-18 10:00:00', '2017-03-18 10:00:00', '8183 Papkeszi, Bajcs', '', 2),
-(3, 16, 9, '2017-04-30 14:00:00', '2017-03-30 19:00:00', '8200 Veszprém, Gábor', '', 2);
+(1, 16, 1, '2017-05-17 15:00:00', '2017-03-17 19:00:00', '8200 Veszprém, Gábor', 'Kaja lesz, üdítőt hozzatok!', 2),
+(2, 17, 5, '2017-04-18 16:00:00', '2017-03-18 19:00:00', '8183 Papkeszi, Bajcs', 'Parkolás: szomszéd üres telken', 2),
+(3, 16, 9, '2017-04-30 14:00:00', '2017-04-30 19:00:00', '8200 Veszprém, Gabor', 'A 4-es busszal a 6. megálló', 2),
+(4, 33, 10, '2017-04-24 19:00:00', '2017-04-24 23:00:00', 'Szeged', 'Hozzatok papucsot!', 2);
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `event_has_user` (
   `user_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `event_has_user`
@@ -97,7 +98,10 @@ INSERT INTO `event_has_user` (`id`, `user_id`, `event_id`) VALUES
 (1, 16, 1),
 (2, 16, 2),
 (4, 17, 1),
-(7, 17, 2);
+(7, 17, 2),
+(8, 33, 3),
+(9, 33, 4),
+(10, 33, 3);
 
 -- --------------------------------------------------------
 
@@ -167,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `user`
@@ -189,7 +193,8 @@ INSERT INTO `user` (`id`, `username`, `fullname`, `cim`, `email`, `password`) VA
 (29, 'mate', 'Máté', '', 'mate@gmail.com', 'da39a3ee5e6b4b0d3255bfef95601890afd80709'),
 (30, 'mate', 'Máté', '', 'mate@gmail.com', 'da39a3ee5e6b4b0d3255bfef95601890afd80709'),
 (31, 'mate', 'Máté', '', 'mate@gmail.com', 'da39a3ee5e6b4b0d3255bfef95601890afd80709'),
-(32, 'mate', 'Máté', '', 'mate@gmail.com', 'da39a3ee5e6b4b0d3255bfef95601890afd80709');
+(32, 'mate', 'Máté', '', 'mate@gmail.com', 'da39a3ee5e6b4b0d3255bfef95601890afd80709'),
+(33, 'andras', 'Víg András', '', 'andras@gmail.com', '08a2fc565a1389a511ab9206b9a1e6b4b433486a');
 
 -- --------------------------------------------------------
 
@@ -206,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `user_has_game` (
   PRIMARY KEY (`id`),
   KEY `fk_user_has_games_games1_idx` (`game_id`),
   KEY `fk_user_has_games_user_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `user_has_game`
@@ -242,7 +247,11 @@ INSERT INTO `user_has_game` (`id`, `user_id`, `game_id`, `sajat`, `szivesen`) VA
 (34, 17, 2, 1, 0),
 (35, 17, 9, 1, 0),
 (36, 17, 1, 0, 1),
-(37, 17, 2, 0, 1);
+(37, 17, 2, 0, 1),
+(38, 33, 2, 1, 0),
+(39, 33, 10, 1, 0),
+(40, 33, 6, 0, 1),
+(41, 33, 9, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -289,7 +298,9 @@ INSERT INTO `user_has_game_types` (`user_id`, `game_type_id`) VALUES
 (17, 1),
 (17, 2),
 (17, 1),
-(17, 2);
+(17, 2),
+(33, 3),
+(33, 4);
 
 --
 -- Constraints for dumped tables

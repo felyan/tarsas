@@ -50,6 +50,11 @@ function regisztracio()
 
 function regisztracio_action()
 {
+  if (!validalas(['fullname', 'cim', 'email', 'username', 'password', 'password_again'], 'post')) {
+    uzenet('A beviteli mezők kitöltése kötelező!');
+    regisztracio();
+    return false;
+  }
   $user_id = felhasznalo_letrehozas($_POST['fullname'], $_POST['email'], $_POST['username'], $_POST['password']);
   if ($user_id) {
     felhasznalo_jatek_tipusok_insert($_POST['jatek-tipusok'], $user_id);
@@ -70,13 +75,18 @@ function bejelentkezes()
  */
 function bejelentkezes_action()
 {
+  if (!validalas(['username', 'password'], 'post')) {
+    uzenet('A beviteli mezők kitöltése kötelező!');
+    redirect('profil_bejelentkezes');
+    return false;
+  }
   $fnev = $_POST['username'];
   $jelszo = $_POST['password'];
   $users = kereses_fnev_alapjan($fnev);
   foreach ($users as $user) {
     if ($user['username'] == $fnev && $user['password'] == sha1($jelszo)) {
       $_SESSION['user'] = $user;
-      header("location:/");
+      redirect('fooldal');
     }
   }
   return false;

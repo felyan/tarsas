@@ -8,24 +8,21 @@
       <ul>
         <?php if ($user): ?>
           <li><a href="<?= route('profil_modositas') ?>">Profil módosítása</a></li>
-        <?php endif; ?>
-        <?php if (!$user): ?>
+          <li><a href="<?= route('profil_kijelentkezes') ?>">Kijelentkezés</a></li>
+        <?php else: ?>
           <li><a href="<?= route('profil_regisztracio') ?>">Regisztráció</a></li>
+          <li><a href="<?= route('profil_bejelentkezes') ?>">Bejelentkezés</a></li>
         <?php endif; ?>
-        <li><a href="<?= route('profil_bejelentkezes') ?>">Bejelentkezés</a></li>
         <li><a href="<?= route('igymukodik') ?>">Így működik</a></li>
       </ul>
     </nav>
     <div class="session">
       <?php if ($user): ?>
+      <br>
       Bejelentkezve:<br>
-      <?= $user['fullname'] ?><br>
-      <a href="<?= route('profil_kijelentkezes') ?>">
-        Kijelentkezés
-      </a>
+      <?= $user['fullname'] ?>
     </div>
     <?php endif; ?>
-</div>
-</header>
+  </header>
 </div>
 

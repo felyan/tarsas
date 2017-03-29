@@ -13,7 +13,7 @@
       <br><br>
       <div>
         <label class="urlap_cim" for="szabad_helyek">Szabad helyek:</label><br>
-        <input type="number" name="szabad_helyek" id="szabad_helyek" value="2">
+        <input type="number" name="szabad_helyek" id="szabad_helyek" value="2" min="1">
       </div>
       <br>
       <div>

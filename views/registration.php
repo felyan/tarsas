@@ -10,14 +10,14 @@
     <fieldset class="mezo_cs">
       <legend class="urlap_cim">Alap adatok</legend>
       <label for="fullname">Név:</label><br>
-      <input type="text" name="fullname" id="fullname"
+      <input type="text" name="fullname" id="fullname" required
              value="<?php echo $user ? $user['fullname'] : '' ?>"
              placeholder="Keresztnév Vezetéknév"/><br>
-      <label for="cim">Város:</label><br>
-      <input type="text" name="cim" id="cim"
+      <label for="cim" required>Város:</label><br>
+      <input type="text" name="cim" id="cim" required
              value="<?php echo $user ? $user['cim'] : '' ?>"><br>
       <label for="email">E-mail cím:</label><br>
-      <input type="email" name="email" id="email"
+      <input type="email" name="email" id="email" required
              value="<?php echo $user ? $user['email'] : '' ?>"><br>
       <br>
       <label for="feltoltes">Tölts fel profilképet magadról:</label>
@@ -28,12 +28,12 @@
     <fieldset class="mezo_cs">
       <legend class="urlap_cim">Belépéshez szükséges adatok</legend>
       <label for="username">Felhasználónév:</label><br>
-      <input type="text" name="username" id="username"
+      <input type="text" name="username" id="username" required
              value="<?php echo $user ? $user['username'] : '' ?>"><br>
       <label for="password">Jelszó:</label><br>
-      <input type="password" name="password" id="password"><br>
+      <input type="password" name="password" id="password" required><br>
       <label for="password_again">Jelszó még egyszer:</label><br>
-      <input type="password" name="password_again" id="password_again"><br>
+      <input type="password" name="password_again" id="password_again" required><br>
     </fieldset>
   </div>
   <div>

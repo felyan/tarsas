@@ -13,8 +13,6 @@ function hozzaszolasok_listazasa()
 
 function hozzaszolas_bekuldese_action()
 {
-  global $user;
-  hozzaszolas($user['id'], $_GET['chat_id']);
-  $_SESSION['message'] = 'A hozzászólásodat rögzítettük!';
-  hozzaszolasok_listazasa();
+  hozzaszolas($_POST['user_id'], $_POST['hozzaszolas']);
+  redirect('chat', null, '#hozzaszolas');
 }

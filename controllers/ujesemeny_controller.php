@@ -19,7 +19,8 @@ function ujesemeny_action()
   global $user;
   esemeny_insert($user['id'], $_POST['game_id'], $_POST['date_start'], $_POST['date_end'],
     $_POST['cim'], $_POST['leiras'], $_POST['szabad_helyek']);
-  ujesemeny();
+  uzenet('Az eseményt rögzítettük!');
+  redirect('kereses');
 }
 
 function jelentkezes_action()

@@ -52,6 +52,20 @@ function uzenet_kiir()
   return $uzenet;
 }
 
+function validalas($kulcsok, $method)
+{
+  $methodUpper = '_' . strtoupper($method);
+  global ${$methodUpper};
+  $globalArray = ${$methodUpper};
+  $okList = [];
+  foreach ($kulcsok as $kulcs) {
+    if (isset($globalArray[$kulcs]) && !empty($globalArray[$kulcs])) {
+      $okList[$kulcs] = true;
+    }
+  }
+  return count($okList) === count($kulcsok);
+}
+
 /*
  * Ez a "helper" eljárás arra jó, hogy a megfelelő formában írja ki az elrési útvonalat.
  * Tipikus felhasznállási terület: a menüben vagy fejlécben kiírt linkek "href" attribútuma.
@@ -91,7 +105,8 @@ function view($viewName, $view = [])
   return true;
 }
 
-function redirect($key, $args = null)
+function redirect($key, $args = null, $concat = '')
 {
-  header("location:" . route($key, $args));
+  $location = "location:" . route($key, $args) . $concat;
+  header($location);
 }
