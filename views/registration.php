@@ -66,7 +66,7 @@
   </div>
   <fieldset class="mezo_cs">
     <legend class="urlap_cim">Amit még fontos tudni rólam:</legend>
-    <textarea name="rolam" cols="50" rows="5" maxlength="1000" placeholder="ide írj..."></textarea><br>
+    <textarea name="rolam" class="input_100" rows="5" maxlength="1000" placeholder="ide írj..."></textarea><br>
     <input name="reg_submit" type="submit" value="Adatok küldése"/>
   </fieldset>
 </form>

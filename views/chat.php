@@ -19,7 +19,7 @@
     <fieldset class="mezo_cs">
       <legend><h2>Hozzászólás</h2></legend>
       <p><?php echo $user["username"]?></p>
-      <textarea cols="50" rows="5" maxlength="1000"
+      <textarea class="input_100" rows="5" maxlength="1000"
                 name="hozzaszolas"
                 id="hozzaszolas"
                 autofocus required

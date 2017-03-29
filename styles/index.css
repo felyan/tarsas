@@ -50,7 +50,7 @@ div.wrapper {
 
 #header,
 #container,
-#copyright {
+.footer {
   display: block;
   width: 960px;
   margin: 0 auto;
@@ -141,7 +141,6 @@ h6 {
   padding: 0 20px;
   border: 5px;
   border-radius: 10px;
-
 }
 
 #header nav li {
@@ -225,14 +224,36 @@ h6 {
   margin: 0 auto;
 }
 
-#copyright {
+.footer {
   padding: 20px 0;
+  margin-bottom: 1rem;
 }
 
-#copyright p {
+.footer_copyright {
   margin: 0;
   padding: 0;
+  float: left;
 }
+
+.footer_menu {
+  float: right;
+  margin: 0;
+}
+
+.footer_menu li {
+  display: inline;
+  margin-left: 15px;
+}
+
+.footer_menu li a {
+  color: #C0BAB6;
+}
+
+.footer_menu li a:hover {
+  color: #FF9900;
+  background-color: #232323;
+}
+
 
 .urlap {
   margin: auto;
@@ -263,7 +284,7 @@ a.button {
 }
 
 .mezo_cs {
-  margin: 30px;
+  margin: 30px auto;
   border-radius: 10px;
 
 }
