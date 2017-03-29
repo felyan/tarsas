@@ -20,7 +20,8 @@
       <?php if ($user): ?>
       <br>
       Bejelentkezve:<br>
-      <?= $user['fullname'] ?>
+      <?= $user['fullname'] ?><br>
+      <a href="<?= route('sajat_esemenyek') ?>">Saját események</a>
     </div>
     <?php endif; ?>
   </header>

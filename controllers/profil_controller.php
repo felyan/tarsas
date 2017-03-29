@@ -52,7 +52,12 @@ function regisztracio_action()
 {
   if (!validalas(['fullname', 'cim', 'email', 'username', 'password', 'password_again'], 'post')) {
     uzenet('A beviteli mezők kitöltése kötelező!');
-    regisztracio();
+    redirect('profil_regisztracio');
+    return false;
+  }
+  if ($foglalt = kereses_fnev_alapjan($_POST['username']) and count($foglalt)) {
+    uzenet('Ez a felhasználónév már foglalt!!');
+    redirect('profil_regisztracio');
     return false;
   }
   $user_id = felhasznalo_letrehozas($_POST['fullname'], $_POST['email'], $_POST['username'], $_POST['password']);

@@ -53,6 +53,9 @@ function esemeny_kereses($tipus, $kifejezes)
     case 'date':
       $query .= " WHERE event.date_start > '$kifejezes' ";
       break;
+    case 'user_id':
+      $query .= " WHERE user.id = '$kifejezes' ";
+      break;
   }
   $query .= "
     GROUP BY event.id

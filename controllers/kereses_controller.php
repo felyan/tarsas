@@ -13,3 +13,13 @@ function kereses()
     'events' => esemeny_kereses($tipus, $kifejezes)
   ]);
 }
+
+function sajat_esemenyek()
+{
+  global $user;
+  view('kereses', [
+    'tipus' => 'username',
+    'kifejezes' => $user['username'],
+    'events' => esemeny_kereses('user_id', $user['id'])
+  ]);
+}
